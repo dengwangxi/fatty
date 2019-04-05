@@ -1006,14 +1006,17 @@ do_cmd(struct term* term)
 {
   char *s = term->cmd_buf;
   s[term->cmd_len] = 0;
-  int size = cs_mbstowcs(NULL, s, 0) + 1;
-  wchar *ws = malloc(size * sizeof(wchar));  // includes terminating NUL
-  cs_mbstowcs(ws, s, size);
+  int size = 0;
+  wchar *ws = null;
   switch (term->cmd_num) {
     when -1: do_dcs(term);
-    when 0 or 2:
-      win_tab_set_title(term, ws);  // ignore icon title
+    when 100:
+      size = cs_mbstowcs(NULL, s, 0) + 1;
+      ws = malloc(size * sizeof(wchar));  // includes terminating NUL
+      cs_mbstowcs(ws, s, size);
+      win_tab_set_title(term, ws);               // ignore icon title
       free(ws);
+	when 101: win_tab_create();
     when 4:  do_colour_osc(term, 0);
     when 10: do_colour_osc(term, FG_COLOUR_I);
     when 11: do_colour_osc(term, BG_COLOUR_I);
