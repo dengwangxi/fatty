@@ -49,3 +49,5 @@ execute bash (or other shell of your choice).
 You might also want to remove the line `cd "${HOME}"` from `/etc/profile` (if
 there are such line) if you want your new tabs to open same directory as your
 current tab.
+
+D:\msys64\usr\bin\fatty.exe -t 'tab1' -b '/usr/bin/zsh --login'
